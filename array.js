@@ -18,5 +18,7 @@ class MyArray {
 const myArray = new MyArray();
 
 myArray.push("ana");
-console.log(myArray.get(0));
+myArray.push({ nombre: "jose" });
+myArray.push(159);
+console.log(myArray.get());
 console.log(myArray);
