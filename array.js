@@ -13,12 +13,26 @@ class MyArray {
     this.length++;
     return this.data;
   }
+  pop() {
+    delete this.data[this.length - 1];
+    this.length--;
+    return this.data;
+  }
 }
 
 const myArray = new MyArray();
 
 myArray.push("ana");
+myArray.push("diego");
+myArray.push("jose");
 myArray.push({ nombre: "jose" });
 myArray.push(159);
-console.log(myArray.get());
+myArray.push("amdres");
+myArray.pop();
+myArray.pop();
+myArray.pop();
+myArray.pop();
+myArray.pop();
+console.log(myArray.get(0));
+console.log(myArray.get(myArray.length - 1));
 console.log(myArray);
