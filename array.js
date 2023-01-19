@@ -19,6 +19,27 @@ class MyArray {
     this.length--;
     return this.data;
   }
+  unshift(item) {
+    if (!item) return this.length;
+    for (let i = this.length; i >= 1; i--) {
+      this.data[i] = this.data[i - 1];
+    }
+    this.data[0] = item;
+    this.length++;
+    return this.length;
+  }
+
+  shift() {
+    const primerItem = this.data[0];
+    if (!this.length) return undefined;
+    for (let i = 0; i <= this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+    return primerItem;
+  }
+
   delete(index) {
     const item = this.data[index];
     console.log("delete-->", item);
