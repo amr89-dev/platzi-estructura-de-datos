@@ -70,14 +70,30 @@ class HashTable {
               currentBucket[i] = currentBucket[i + 1];
             }
             currentBucket.pop();
-            console.log(currentBucket, "<");
+            //console.log(currentBucket,"<")
           }
         }
       }
       return bucketToDelete;
     }
-
     return undefined;
+  }
+
+  getAllKeys() {
+    const buckets = this.buckets;
+    const keys = [];
+    if (!buckets.length) return;
+    for (let i = 0; i < buckets.length; i++) {
+      if (buckets[i] && buckets[i].length > 1) {
+        for (let j = 0; j < buckets[i].length; j++) {
+          keys.push(buckets[i][j][0]);
+        }
+      }
+      if (buckets[i] && buckets[i].length <= 1) {
+        keys.push(buckets[i][0][0]);
+      }
+    }
+    return keys;
   }
 }
 
@@ -90,6 +106,7 @@ hashTable.set("Diego", 1990);
 hashTable.set("Mariana", 2001);
 hashTable.set("Adriana", 1998);
 hashTable.delete("Diego");
+hashTable.getAllKeys();
 
 /* //Probando el shif para borrar un elemento del array
   function shift(arr) {
