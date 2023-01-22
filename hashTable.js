@@ -10,6 +10,7 @@ Según la definición de Kaspersky:
 En pocas palabras, un hash es un string aleatorio que se genera a partir de un string que le pasamos nosotros, este string que se genera tendrá una longitud fija, no importa si el string que nosotros le pasamos es muy largo.
 .
 El hash se suele usar mucho al momento de encriptar contraseñas, y la forma de calcularlos es mediante un algoritmo matemático*/
+
 class HashTable {
   constructor(size) {
     this.buckets = new Array(size);
@@ -35,11 +36,10 @@ class HashTable {
 
   //creamos el metodo get
   get(key) {
-    const address = this.hashMethod(key); // <-- Convertimos el key en un address para ubicar el bucket
-    const currentBucket = this.buckets[address]; // <-- Nos posicionamos en el bucket
-    //console.log(currentBucket);
+    const address = this.hashMethod(key);
+    const currentBucket = this.buckets[address];
+    //console.log(currentBucket)
     if (currentBucket) {
-      // <-- Recorremos cada uno de los elementos del bucket
       for (let i = 0; i < currentBucket.length; i++)
         //console.log(currentBucket[i])
         if (currentBucket[i][0] === key) {
@@ -48,13 +48,57 @@ class HashTable {
       return "No existe esa entrada";
     }
   }
+
+  //Creamos el metodo delete
+
+  delete(key) {
+    const address = this.hashMethod(key);
+    const currentBucket = this.buckets[address];
+    let bucketToDelete;
+    if (currentBucket) {
+      for (let i = 0; i < currentBucket.length; i++) {
+        //console.log(currentBucket[i][0])
+        if (currentBucket[i][0] === key) {
+          bucketToDelete = currentBucket[i];
+          let position = i;
+          if (position === currentBucket.length - 1) {
+            currentBucket.pop();
+          } else if (position === 0) {
+            currentBucket.shift();
+          } else {
+            for (let i = position; i <= currentBucket.length - 1; i++) {
+              currentBucket[i] = currentBucket[i + 1];
+            }
+            currentBucket.pop();
+            console.log(currentBucket, "<");
+          }
+        }
+      }
+      return bucketToDelete;
+    }
+
+    return undefined;
+  }
 }
 
-const hashTable = new HashTable(35);
+const hashTable = new HashTable(50);
 
 //console.log(hashTable.hashMethod("mariana"))
-hashTable.set("Diego", 1998);
-hashTable.set("Diego1", 1998);
+
+hashTable.set("Diego2", 1990);
+hashTable.set("Diego", 1990);
 hashTable.set("Mariana", 2001);
-hashTable.set("Andres", 1998);
-hashTable.get("Diego");
+hashTable.set("Adriana", 1998);
+hashTable.delete("Diego");
+
+/* //Probando el shif para borrar un elemento del array
+  function shift(arr) {
+    for (let i = 3 ; i <= arr.length - 1; i++) {
+      arr[i] = arr[i + 1];
+    }
+      arr.pop()
+     console.log(arr);
+  }
+
+shift(["a","b","c","d","e","f"])
+*/
