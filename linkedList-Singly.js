@@ -24,7 +24,7 @@ class MySinglyLinkedList {
     this.tail.next = node;
     this.tail = node;
     this.length++;
-    //return this
+    return this;
   }
   //Agregamos un nodo al principio
   preppend(value) {
