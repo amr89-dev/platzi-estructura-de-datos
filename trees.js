@@ -17,33 +17,51 @@ class BinarySearchTree {
     this.root = null;
   }
 
-  insert(value) {
+  /* insert(value){
+    const node = new Node(value)
+    if(this.root === null){
+      this.root = node
+    }else{
+      let currentNode = this.root
+      while(true){
+        if(value <  currentNode.value){
+          if(!currentNode.left){
+            currentNode.left = node
+            return this
+          }
+          currentNode = currentNode.left
+        } else {
+          if (!currentNode.right){
+            currentNode.right = node
+            return
+          }
+          currentNode = currentNode.right
+        }
+      }
+    }  
+  }*/
+
+  insert(value, currentNode = this.root) {
     const node = new Node(value);
     if (this.root === null) {
       this.root = node;
     } else {
-      let currentNode = this.root;
-      while (true) {
-        if (value < currentNode.value) {
-          if (!currentNode.left) {
-            currentNode.left = node;
-            return this;
-          }
-          currentNode = currentNode.left;
-        } else {
-          if (!currentNode.right) {
-            currentNode.right = node;
-            return;
-          }
-          currentNode = currentNode.right;
-        }
+      if (currentNode.left && value < currentNode.value) {
+        return this.insert(value, currentNode.left);
+      } else {
+        currentNode = node;
+      }
+      if (currentNode.right && value > currentNode.value) {
+        return this.insert(value, currentNode.right);
+      } else {
+        currentNode = node;
       }
     }
   }
 
   search(value, tree = this.root) {
     console.log(value, "->", tree);
-    if (tree == null) {
+    if (!tree) {
       return "el elemento no se encuentra";
     } else if (value < tree.value) {
       return this.search(value, tree.left);
@@ -63,5 +81,5 @@ tree.insert(2);
 tree.insert(8);
 tree.insert(17);
 tree.insert(170);
-tree.search(10);
+//tree.search(170)
 console.log(tree);
