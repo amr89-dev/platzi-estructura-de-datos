@@ -14,15 +14,15 @@ class Node {
 
 class BinarySearchTree {
   constructor() {
-    this.node = null;
+    this.root = null;
   }
 
   insert(value) {
     const node = new Node(value);
-    if (this.node === null) {
-      this.node = node;
+    if (this.root === null) {
+      this.root = node;
     } else {
-      let currentNode = this.node;
+      let currentNode = this.root;
       while (true) {
         if (value < currentNode.value) {
           if (!currentNode.left) {
@@ -40,6 +40,19 @@ class BinarySearchTree {
       }
     }
   }
+
+  search(value, tree = this.root) {
+    console.log(value, "->", tree);
+    if (tree == null) {
+      return "el elemento no se encuentra";
+    } else if (value < tree.value) {
+      return this.search(value, tree.left);
+    } else if (value > tree.value) {
+      return this.search(value, tree.right);
+    } else {
+      return `Lo hemos encontrado ${tree.value}`;
+    }
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -50,4 +63,5 @@ tree.insert(2);
 tree.insert(8);
 tree.insert(17);
 tree.insert(170);
+tree.search(10);
 console.log(tree);
